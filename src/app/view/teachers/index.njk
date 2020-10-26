@@ -20,7 +20,7 @@
                     {{teacher.name}}
                 </td>
                 <td>
-                    {% for area in teacher.areas.split(",") %}
+                    {% for area in teacher.subjects_taught.split(",") %}
                         <span class="area">{{area}}</span>
                     {% endfor %}
                 </td>
@@ -29,6 +29,12 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <div class="pagination"
+        data-page={{pagination.page}}
+        data-total={{pagination.total}}
+        data-filter={{filter}}
+    ></div>
 
 </div>
 {% endblock content %}
