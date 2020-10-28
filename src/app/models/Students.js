@@ -1,4 +1,4 @@
-const {date} = require("../../lib/utils")
+const {date, schollYear} = require("../../lib/utils")
 const db = require("../../config/db")
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
         INSERT INTO students (
             avatar_url,
             name,
-            birth_date,
+            birth,
             email,
             year,
             hours,
@@ -29,9 +29,9 @@ module.exports = {
     const values = [
         data.avatar_url,
         data.name,
-        date(data.birth),
+        date(data.birth).iso,
         data.email,
-        data,year,
+        schollYear(data.year),
         data.hours,
         date(Date.now()).iso
     ]
@@ -47,7 +47,7 @@ module.exports = {
             SELECT students.*, teachers.name AS teacher_name
             FROM students
             LEFT JOIN teachers ON (students.teacher_id = teachers.id)
-            WHERE student.id = $1`, [id], function(err, results) {
+            WHERE students.id = $1`, [id], function(err, results) {
                 if(err) throw `Database error ${err}`
 
                 callback(results.rows[0])

@@ -1,4 +1,4 @@
-
+const {date, graduation} = require("../../lib/utils")
 const db = require("../../config/db")
 
 module.exports = {
@@ -30,8 +30,8 @@ module.exports = {
     const values = [
         data.avatar_url,
         data.name,
-        date(data.birth),
-        data.degress,
+        date(data.birth).iso,
+        data.degrees,
         data.class_type,
         data.areas,
         date(Date.now()).iso
@@ -46,7 +46,7 @@ module.exports = {
     find(id, callback) {
         db.query(`
             SELECT *
-            FROM teacher
+            FROM teachers
             WHERE id = $1`, [id], function(err, results) {
                 if(err) throw `Database error ${err}`
 
@@ -69,7 +69,7 @@ module.exports = {
     },
     updated(data, callback) {
         const query = `
-        UPDATE teacher SET
+        UPDATE teachers SET
             avatar_url=($1),
             name=($2),
             birth_date=($3),
@@ -82,7 +82,7 @@ module.exports = {
             data.avatar_url,
             data.name,
             date(data.birth).iso,
-            data.degress,
+            data.degrees,
             data.class_type,
             data.areas,
             data.id
@@ -95,7 +95,7 @@ module.exports = {
         })
     },
     delete(id, callback) {
-        db.query(`DELETE FROM teacher WHERE id = $1`, [id], function(err, results) {
+        db.query(`DELETE FROM teachers WHERE id = $1`, [id], function(err, results) {
             if(err) throw `DATAbase error ${err}`
 
             callback()

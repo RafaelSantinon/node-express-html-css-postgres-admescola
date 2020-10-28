@@ -29,9 +29,9 @@ module.exports= {
         teacher.find(req.params.id, function(teacher){
             if(!teacher) return res.send("Teacher not found!")
 
-            teacher.age = age(teacher.birth)
-            teacher.education_level = graduation(teacher.degrees)
-            teacher.subjects_taught = teacher.areas.split(",")
+            teacher.birth = age(teacher.birth_date)
+            teacher.degrees = graduation(teacher.education_level)
+            teacher.areas = teacher.subjects_taught.split(",")
             teacher.created_at = date(teacher.created_at).format
 
             return res.render("teachers/show", {teacher})
@@ -57,9 +57,13 @@ module.exports= {
         teacher.find(req.params.id, function(teacher) {
             if(!teacher) return res.send("Teacher not found")
 
-            teacher.birth = date(teacher.birth).iso
+            teacher.birth = date(teacher.birth_date).birthDay
+            teacher.areas = teacher.subjects_taught.split(",")
+            teacher.degrees = teacher.education_level
 
-            return res.send("teachers/edit", {teacher})
+            console.log(teacher.birth)
+
+            return res.render("teachers/edit", {teacher})
         })
     },
     put(req, res){

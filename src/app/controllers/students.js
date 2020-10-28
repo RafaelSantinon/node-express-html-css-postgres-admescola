@@ -20,6 +20,7 @@ module.exports = {
                     total: Math.ceil(students[0].total / limit),
                     page
                 }
+
                 return res.render("students/index", {students, filter, pagination})
             }
         }
@@ -31,7 +32,6 @@ module.exports = {
             if(!student) return res.send("Student not found!")
 
             student.birth = date(student.birth).birthDay
-            student.year = schollYear(student.year)
 
             return res.render("students/show", {student})
         })
