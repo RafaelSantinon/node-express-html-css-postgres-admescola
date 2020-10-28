@@ -38,7 +38,7 @@ module.exports= {
         })
     },
     create(req, res){
-        res.render("teachers/create")
+        return res.render("teachers/create")
     },
     post(req, res){
         const keys = Object.keys(req.body)
@@ -57,11 +57,9 @@ module.exports= {
         teacher.find(req.params.id, function(teacher) {
             if(!teacher) return res.send("Teacher not found")
 
-            teacher.birth = date(teacher.birth_date).birthDay
+            teacher.birth = date(teacher.birth_date).iso
             teacher.areas = teacher.subjects_taught.split(",")
             teacher.degrees = teacher.education_level
-
-            console.log(teacher.birth)
 
             return res.render("teachers/edit", {teacher})
         })

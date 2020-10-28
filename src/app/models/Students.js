@@ -21,8 +21,9 @@ module.exports = {
             email,
             year,
             hours,
-            created_at
-        )VALUES($1, $2, $3, $4, $5, $6, $7)
+            created_at,
+            teacher_id
+        )VALUES($1, $2, $3, $4, $5, $6, $7, $8)
         RETURNING id
     `
 
@@ -33,7 +34,8 @@ module.exports = {
         data.email,
         schollYear(data.year),
         data.hours,
-        date(Date.now()).iso
+        date(Date.now()).iso,
+        data.teacher
     ]
 
     db.query(query, values, function(err, results) {
@@ -61,16 +63,18 @@ module.exports = {
             birth_date=($3),
             email=($4),
             year($5),
-            hours=($6)
-        WHERE id = $7`
+            hours=($6),
+            teacher_id=($7)
+        WHERE id = $8`
 
         const values =[
             data.avatar_url,
             data.name,
             date(data.birth).iso,
             data.email,
-            data.year,
+            schollYear(data.year),
             data.hours,
+            data.teacher,
             data.id
         ]
 
@@ -88,7 +92,7 @@ module.exports = {
         })
     },
     teacherSelectOptions(callback){
-        db.query(`SELECT name, id FROM students`, function(err, results){
+        db.query(`SELECT name, id FROM teachers`, function(err, results){
             if(err) throw "Database error!"
 
             callback(results.rows)

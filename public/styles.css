@@ -144,6 +144,7 @@ input{
     font-weight: bold;
     line-height: 26px;
     border-radius: 8px;
+    padding: 4px 8px;
 }
 
 select{
@@ -153,6 +154,7 @@ select{
     font-weight: bold;
     line-height: 26px;
     border-radius: 8px;
+    padding: 4px 8px;
 }
 
 input[type="radio"]{
@@ -283,17 +285,17 @@ td:last-child{
 
 /* pagination */
 
-.table-container{
+#index{
     display: grid;
     grid-template: 60px 1fr 16px / 1fr;
 }
 
-.table-container .header{
+#index .header{
     margin: 0;
     align-self: start;
 }
 
-.table-container .pagination{
+#index .pagination{
     margin: 0;
     align-self: end;
     justify-self: center;
@@ -309,4 +311,35 @@ td:last-child{
 .pagination a:hover{
     filter: brightness(0.3);
     border-bottom: 1px solid var(--primery-color);
+}
+
+/* Filters */
+
+.card .header{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.card .header a{
+    margin: 0;
+    width:120px;
+}
+
+.card .header form{
+    display: grid;
+    grid-template-columns: 1fr 120px;
+    align-items: center;
+    grid-gap: 8px;
+}
+
+.card .header form input{
+    border: 1px solid #eee;
+    padding: 4px 8px;
+    box-sizing: border-box;
+}
+
+.card .header form button{
+    margin: 0;
 }

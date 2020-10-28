@@ -1,5 +1,5 @@
 const student = require("../models/Students")
-const {date, schollYear} = require("../../lib/utils")
+const {date} = require("../../lib/utils")
 
 module.exports = {
 
@@ -55,12 +55,14 @@ module.exports = {
         })
     },
     edit(req, res) {
+        const {teacherSelectOptions} = require("../models/Students")
+
         student.find(req.params.id, function(student) {
             if(!student) return res.send("Student not found")
 
             student.birth = date(student.birth).iso
 
-            student.teacherSelectOptions(function(options){
+            teacherSelectOptions(function(options){
                 return res.render("students/edit", {student, teacherOptions: options})
             })  
         })
@@ -74,7 +76,7 @@ module.exports = {
             }
         }
 
-        student.create(req.body, function(student){
+        student.updated(req.body, function(student){
             return res.redirect(`/students/${student.id}`)
         })
     },

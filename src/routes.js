@@ -4,7 +4,7 @@ const teachers = require("./app/controllers/teachers")
 const students = require("./app/controllers/students")
 
 routes.get("/", function(req, res){
-    res.redirect("teachers")
+    res.redirect("/teachers")
 })
 
 routes.get("/teachers", teachers.index)

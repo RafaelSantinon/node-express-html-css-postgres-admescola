@@ -7,7 +7,7 @@ module.exports = {
         SELECT teachers.*, count(students) AS total_students
         FROM teachers
         LEFT JOIN students ON (teachers.id = students.teacher_id)
-        GROUP BY total_students ASC`, function(err, results){
+        GROUP BY total_students DESC`, function(err, results){
             if(err) throw `Database error! ${err}`
 
             callback(results.rows)
@@ -96,7 +96,7 @@ module.exports = {
     },
     delete(id, callback) {
         db.query(`DELETE FROM teachers WHERE id = $1`, [id], function(err, results) {
-            if(err) throw `DATAbase error ${err}`
+            if(err) throw `Database error ${err}`
 
             callback()
         })
